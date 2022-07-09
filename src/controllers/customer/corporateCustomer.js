@@ -1,0 +1,117 @@
+const customerModel = require('../../models/customer/customer')
+const corporateCustomerModel = require('../../models/customer/corporateCustomer')
+const asyncHandler = require('../../utils/async')
+const AppError = require('../../utils/appError')
+const constValue = require('../const')
+
+const corporateCustomerController = {
+    create: asyncHandler( async (req, res, next) => {
+        const customerReq = {
+            GB_ShortName: req.body.GB_ShortName,
+            GB_FullName: req.body.GB_FullName,
+            IncorpDate: req.body.incorpDate,
+            ContactPerson: req.body.contactPerson,
+            Position: req.body.position,
+            Telephone: req.body.telephone,
+            EmailAddress: req.body.emailAddress,
+            Remarks: req.body.remarks,
+            ContactDate: req.body.contactDate,
+            OfficeNumber: req.body.officeNumber,
+            TotalCapital: req.body.totalCapital,
+            TotalAssets: req.body.totalAssets,
+            TotalRevenue: req.body.totalRevenue,
+            EmployeesNo: req.body.employeesNo,
+            Sector: req.body.sector,
+            GB_Street: req.body.GB_Street,
+            GB_Towndist: req.body.GB_Towndist,
+            GB_Country: req.body.GB_Country,
+            DocID: req.body.docID,
+            DocIssuePlace: req.body.docIssuePlace,
+            DocIssueDate: req.body.docIssueDate,
+            DocExpiryDate: req.body.docExpiryDate,
+            CompanyBook: req.body.companyBook,
+            Liability: req.body.liability,
+            CityProvince: req.body.cityProvince,
+            Nationality: req.body.nationality,
+            Residence: req.body.residence,
+            Doctype: req.body.doctype,
+            MainSector: req.body.mainSector,
+            MainIndustry: req.body.mainIndustry,
+            Industry: req.body.industry,
+            AccountOfficer: req.body.accountOfficer,
+            RelationCode: req.body.relationCode
+        }
+
+        console.log(customerReq)
+
+        if(!customerReq.GB_ShortName || !customerReq.GB_FullName /*|| !customerReq.IncorpDate */
+            || !customerReq.GB_Street || !customerReq.GB_Towndist || !customerReq.CityProvince
+            || !customerReq.Doctype || !customerReq.DocID || !customerReq.DocIssuePlace
+           /* || !customerReq.DocIssueDate */|| !customerReq.MainSector || !customerReq.Sector){
+                return next(new AppError("Enter required fields!", 404))
+        }
+
+        const newCustomer = await customerModel.create({
+            GB_Street: customerReq.GB_Street,
+            GB_Towndist: customerReq.GB_Towndist,
+            GB_Country: customerReq.GB_Country,
+            DocID: customerReq.DocID,
+            DocIssuePlace: customerReq.DocIssuePlace,
+            DocExpiryDate: customerReq.DocExpiryDate,
+            CompanyBook: customerReq.CompanyBook,
+            Liability: customerReq.Liability,
+            CityProvince: customerReq.CityProvince,
+            Nationality: customerReq.Nationality,
+            Residence: customerReq.Residence,
+            Doctype: customerReq.Doctype,
+            MainSector: customerReq.MainSector,
+            MainIndustry: customerReq.MainIndustry,
+            Industry: customerReq.Industry,
+            AccountOfficer: customerReq.AccountOfficer,
+            RelationCode: customerReq.RelationCode,
+            CustomerType: constValue.customer.corporateCustomer
+        })
+
+        const newCustomerID = newCustomer.getDataValue("id")
+        console.log(newCustomerID)
+
+        const newCorporateCustomer = await corporateCustomerModel.create({
+            GB_ShortName: customerReq.GB_ShortName,
+            GB_FullName: customerReq.GB_FullName,
+            IncorpDate: customerReq.IncorpDate,
+            ContactPerson: customerReq.ContactPerson,
+            Position: customerReq.Position,
+            Telephone: customerReq.Telephone,
+            EmailAddress: customerReq.EmailAddress,
+            Remarks: customerReq.Remarks,
+            ContactDate: customerReq.ContactDate,
+            OfficeNumber: customerReq.OfficeNumber,
+            TotalAssets: customerReq.TotalAssets,
+            TotalRevenue: customerReq.TotalRevenue,
+            EmployeesNo: customerReq.EmployeesNo,
+            Sector: customerReq.Sector,
+            CustomerID: newCustomerID
+        })
+
+        return res.status(200).json({
+            message: "inserted",
+            data: {
+                customer: newCustomer,
+                corporateCustomer: newCorporateCustomer
+            }
+        })
+    }),
+
+    findByID: asyncHandler(async (req, res, next) => {
+
+    }),
+
+    update: asyncHandler(async (req, res, next) => {
+
+    }),
+
+    delete: asyncHandler(async (req, res, next) => {
+        
+    })
+}
+module.exports = corporateCustomerController
