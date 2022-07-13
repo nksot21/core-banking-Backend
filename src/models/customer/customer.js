@@ -16,6 +16,14 @@ Customer.init({
         type: DataTypes.TEXT,
         require: true
     },
+    GB_ShortName: {
+        type: DataTypes.TEXT,
+        require: true
+    },
+    GB_FullName: {
+        type: DataTypes.TEXT,
+        require: true
+    },
     DocID: {
         type: DataTypes.TEXT
     },
@@ -24,6 +32,10 @@ Customer.init({
     },
     DocExpiryDate:{
         type: DataTypes.DATE
+    },
+    PhoneNumber: {
+        type: DataTypes.TEXT,
+        require: true
     },
     CompanyBook: DataTypes.TEXT,
     Liability: DataTypes.TEXT

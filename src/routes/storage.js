@@ -12,6 +12,8 @@ const sectorController = require('../controllers/storage/sector')
 const categoryController = require('../controllers/storage/category')
 const chargeCodeController = require('../controllers/storage/chargeCode')
 const productLineController = require('../controllers/storage/productLine')
+const subSectorController = require('../controllers/storage/subSector')
+const subIndustryController = require('../controllers/storage/subIndustry')
 
 route.get('/get_currency', currencyController.getAll)
 route.get('/get_account_officer', accountOfficerController.getAll)
@@ -24,6 +26,11 @@ route.get('/get_sector', sectorController.getAll)
 route.get('/get_category', categoryController.getAll)
 route.get('/get_charge_code', chargeCodeController.getAll)
 route.get('/get_product_line', productLineController.getAll)
+route.get('/get_subsector', subSectorController.getAll)
+route.get('/get_subsector_by_sector/:sectorid', subSectorController.getBySector)
+route.get('/get_subindustry', subIndustryController.getAll)
+route.get('/get_subindustry_by_industry/:industryid', subIndustryController.getByIndustry)
+
 
 
 module.exports = route

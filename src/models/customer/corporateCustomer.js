@@ -5,14 +5,6 @@ const sequelize = require('../../database/sequelize')
 class CorporateCustomer extends Model {}
 
 CorporateCustomer.init({
-    GB_ShortName:{
-        type: DataTypes.TEXT,
-        require: true
-    },
-    GB_FullName:{
-        type: DataTypes.TEXT,
-        require: true
-    },
     IncorpDate: {
         type: DataTypes.DATEONLY,
         require: true
@@ -34,6 +26,6 @@ CorporateCustomer.init({
         defaultValue: 0
     },
     EmployeesNo: DataTypes.TEXT
-}, {sequelize, modelName:'CORPORATECUSTOMER', paranoid: true})
+}, {sequelize, modelName:'CORPORATECUSTOMER', /*paranoid: true*/})
 
 module.exports = CorporateCustomer

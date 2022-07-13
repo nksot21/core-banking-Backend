@@ -8,14 +8,6 @@ IndividualCustomer.init({
     FirstName: DataTypes.TEXT,
     LastName: DataTypes.TEXT,
     MiddleName: DataTypes.TEXT,
-    GB_ShortName: {
-        type: DataTypes.TEXT,
-        require: true
-    },
-    GB_FullName: {
-        type: DataTypes.TEXT,
-        require: true
-    },
     Birthday: {
         type: DataTypes.DATEONLY,
         require: true
@@ -28,7 +20,6 @@ IndividualCustomer.init({
     Title: DataTypes.TEXT,
     MaritalStatus: DataTypes.TEXT,
     ContactDate: DataTypes.DATEONLY,
-    OfficeNumber: DataTypes.TEXT,
     FaxNumber: DataTypes.TEXT,
     DependantsNo: DataTypes.TEXT,
     ChildUnder15: DataTypes.INTEGER,
@@ -38,7 +29,11 @@ IndividualCustomer.init({
     EmploymentStatus: DataTypes.BOOLEAN,
     CompanyName: DataTypes.TEXT,
     MonthlyIncome: DataTypes.INTEGER,
-    OfficeAddress: DataTypes.TEXT
+    OfficeAddress: DataTypes.TEXT,
+    CitizenIdentify: {
+        type: DataTypes.TEXT,
+        unique: true
+    }
 }, {sequelize, modelName:'INDIVIDUALCUSTOMER', /*paranoid: true*/})
 
 module.exports = IndividualCustomer

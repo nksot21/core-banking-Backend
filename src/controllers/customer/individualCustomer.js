@@ -53,16 +53,17 @@ const individualCustomerController = {
             Currency: req.body.currency,
             MonthlyIncome: req.body.monthlyIncome,
             OfficeAddress: req.body.officeAddress,
-            Liability: req.body.customerLiability
+            Liability: req.body.customerLiability,
+            CityzenIdentify: req.body.cityzenIdentify
         }
 
-        /*if(!customerReq.GB_ShortName || !customerReq.GB_FullName || !customerReq.Birthday ||
+        if(!customerReq.GB_ShortName || !customerReq.GB_FullName || !customerReq.Birthday ||
             !customerReq.GB_Street || !customerReq.GB_Towndist || !customerReq.CityProvince || 
             !customerReq.Doctype || !customerReq.DocID || !customerReq.DocIssuePlace ||
             !customerReq.DocIssueDate || !customerReq.MainSector || !customerReq.SubSector ||
             !customerReq.MainIndustry || !customerReq.Industry){
                 return next(new AppError("Enter required fields!", 400))
-        }*/
+        }
 
         const newCustomer = await customerModel.create({
             GB_Street: customerReq.GB_Street,
@@ -97,7 +98,8 @@ const individualCustomerController = {
             EmailAddress: customerReq.EmailAddress,
             CustomerID: customerID,
             SubSector: customerReq.SubSector,
-            Currency: customerReq.Currency
+            Currency: customerReq.Currency,
+            CityzenIdentify: customerReq.CityzenIdentify
         })
 
         return res.status(200).json({
@@ -127,9 +129,20 @@ const individualCustomerController = {
     }),
 
     // MSKH
-    findByID: async () => {},
-    // bo sung mot so dieu kien tim kiem
+    findByID: asyncHandler(async (req, res, next) => {
+        const customerIDReq = req.params.id
+        const customerDB = await individualCustomerModel.findOne({
+            where: {CustomerID: customerIDReq },
+            include: [customerModel]
+        }).catch(err=> {
+            console.log(err)
+        })
 
+        return res.status(200).json({
+            message: "individual customer",
+            data: customerDB
+        })
+    }),
     
     update: asyncHandler(async (req, res, next) => {
         const customerIDReq = req.params.id 
@@ -181,7 +194,7 @@ const individualCustomerController = {
 
         const customerDB = await customerModel.findOne({where: {id: customerIDReq}})
         if( !customerDB ){
-            return next(new AppError("Customer doesnot existed!"))
+            return next(new AppError("Customer not found!", 400))
         }
 
         const customerUpdated = await customerDB.update({
@@ -233,11 +246,11 @@ const individualCustomerController = {
     delete: asyncHandler( async (req, res, next) => {
         const customerIDReq = req.params.id
         
-        const resultindi = await individualCustomerModel.destroy({
+        const isDestroyed_indi = await individualCustomerModel.destroy({
             where: {CustomerID: customerIDReq}
         })
 
-        const result = await customerModel.destroy({
+        const isDestroyed = await customerModel.destroy({
             where: {id: customerIDReq}
         })
 
@@ -245,8 +258,8 @@ const individualCustomerController = {
         return res.status(200).json({
             message: "deleted",
             data: {
-                result: result,
-                resultIndi: resultindi
+                result: isDestroyed,
+                resultIndi: isDestroyed_indi
             }
         })
     })

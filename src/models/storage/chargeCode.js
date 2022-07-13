@@ -5,7 +5,10 @@ class ChargeCode extends Model {}
 
 ChargeCode.init({
     Name: DataTypes.TEXT,
-    Code: DataTypes.TEXT
+    Value: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0
+    }
 }, {sequelize, modelName:'CHARGECODE'})
 
 module.exports = ChargeCode

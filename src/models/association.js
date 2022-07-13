@@ -10,7 +10,11 @@ const industry = require('./storage/industry')
 const accountOfficer = require('./storage/accountOfficer')
 const relation = require('./storage/relation')
 const currency = require('./storage/currency')
-const subsector = require('./storage/subSector')
+const subSector = require('./storage/subSector')
+const subIndustry = require('./storage/subIndustry')
+const category = require('./storage/category')
+const productLine = require('./storage/productLine')
+const SubIndustry = require('./storage/subIndustry')
 
 const association = () => {
     // CUSTOMER 
@@ -84,19 +88,20 @@ const association = () => {
     relation.hasMany(customer, {
         foreignKey: 'RelationCode'
     })
+    // --FkCustomer-SubSector
+    customer.belongsTo(subSector, {
+        foreignKey: 'SubSector'
+    })
+    subSector.hasMany(customer, {
+        foreignKey: 'SubSector'
+    })
 
     // INDIVIDUAL CUSTOMER 
     // --FkIndividualCustomer
     individualCustomer.belongsTo(customer,{
         foreignKey: 'CustomerID'
     })
-    // --FkIndividualCustomer_SectorId
-    individualCustomer.belongsTo(sector, {
-        foreignKey: 'SubSector'
-    })
-    sector.hasMany(individualCustomer, {
-        foreignKey: 'SubSector'
-    })
+    
     // --FkIndividualCustomer_Currency
     individualCustomer.belongsTo(currency, {
         foreignKey: 'Currency'
@@ -109,18 +114,27 @@ const association = () => {
     corporateCustomer.belongsTo(customer, {
         foreignKey: 'CustomerID'
     })
-    // --FkCorporateCustomer_SectorId
-    corporateCustomer.belongsTo(sector, {
-        foreignKey: 'Sector'
-    })
-    sector.hasMany(corporateCustomer, {
-        foreignKey: 'Sector'
-    })
 
     //SECTOR - SUBSECTOR 
     // --FkSector_Subsector
-    subsector.belongsTo(sector, {
+    subSector.belongsTo(sector, {
         foreignKey: 'Sector'
+    })
+
+    //INDUSTRY - SUBINDUSTRY
+    industry.hasMany(subIndustry, {
+        foreignKey: 'Industry'
+    })
+    subIndustry.belongsTo(industry, {
+        foreignKey: 'Industry'
+    })
+
+    //CATEGORY - PRODUCTLINE
+    productLine.belongsTo(category, {
+        foreignKey: 'Category'
+    })
+    category.hasMany(productLine, {
+        foreignKey: 'Category'
     })
 }
 
