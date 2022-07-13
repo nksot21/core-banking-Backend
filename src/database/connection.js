@@ -15,7 +15,7 @@ const database = {
         },
         migrate: async () => {
             association()
-            await sequelize.sync({force: true})
+            await sequelize.sync({force: false})
             .then(()=>{
                 console.log('Migrated')
             })

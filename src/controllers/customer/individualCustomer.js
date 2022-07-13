@@ -57,13 +57,13 @@ const individualCustomerController = {
             CityzenIdentify: req.body.cityzenIdentify
         }
 
-        if(!customerReq.GB_ShortName || !customerReq.GB_FullName || !customerReq.Birthday ||
+        /*if(!customerReq.GB_ShortName || !customerReq.GB_FullName || !customerReq.Birthday ||
             !customerReq.GB_Street || !customerReq.GB_Towndist || !customerReq.CityProvince || 
             !customerReq.Doctype || !customerReq.DocID || !customerReq.DocIssuePlace ||
             !customerReq.DocIssueDate || !customerReq.MainSector || !customerReq.SubSector ||
             !customerReq.MainIndustry || !customerReq.Industry){
                 return next(new AppError("Enter required fields!", 400))
-        }
+        }*/
 
         const newCustomer = await customerModel.create({
             GB_Street: customerReq.GB_Street,
@@ -84,6 +84,9 @@ const individualCustomerController = {
             AccountOfficer: customerReq.AccountOffice,
             CustomerType: constValue.customer.individualCustomer,
             RelationCode: customerReq.RelationCode
+        })
+        .catch(err => {
+            console.log(err)
         })
 
         const customerID = newCustomer.getDataValue("id")
