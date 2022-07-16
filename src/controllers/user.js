@@ -45,6 +45,8 @@ const userController = {
             password: req.body.password
         }
 
+        console.log(req.body)
+
         if(!userReq.username || !userReq.password){
             return res.status(400).json("Enter the required fields!")
         }

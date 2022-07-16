@@ -6,8 +6,7 @@ class User extends Model {}
 User.init({
     Username: {
         type: DataTypes.TEXT,
-        require: true,
-        unique: true
+        require: true
     },
     Password: {
         type: DataTypes.TEXT

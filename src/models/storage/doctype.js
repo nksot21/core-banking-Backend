@@ -6,8 +6,7 @@ class Doctype extends Model {}
 Doctype.init({
     Name: DataTypes.TEXT,
     Code: {
-        type: DataTypes.TEXT,
-        unique: true
+        type: DataTypes.TEXT
     }
 }, {sequelize, modelName:'DOCTYPE'})
 

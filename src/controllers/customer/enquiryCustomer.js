@@ -35,19 +35,19 @@ const enquiryCustomerController = {
             enquiryString += 'CustomerType = ' + enquiryReq.customerType
         }
         if(enquiryReq.customerID){
-            enquiryString += ' AND id = ' + enquiryReq.customerType
+            enquiryString += ' AND id = "' + enquiryReq.customerType + '"'
         }
         if(enquiryReq.GB_FullName){
-            enquiryString += ' AND GB_FullName = ' + enquiryReq.GB_FullName
+            enquiryString += ' AND GB_FullName = "' + enquiryReq.GB_FullName + '"'
         }
         if(enquiryReq.phoneNumber){
-            enquiryString += ' AND PhoneNumber = ' + enquiryReq.phoneNumber
+            enquiryString += ' AND PhoneNumber = "' + enquiryReq.phoneNumber + '"'
         }
         if(enquiryReq.docID){
-            enquiryString += ' AND DocID = ' + enquiryReq.docID
+            enquiryString += ' AND DocID = "' + enquiryReq.docID + '"'
         }
         if(enquiryReq.mainSector){
-            enquiryString += ' AND MainSector = ' + enquiryReq.mainSector
+            enquiryString += ' AND MainSector = ' + enquiryReq.mainSector 
         }
         if(enquiryReq.subSector){
             enquiryString += ' AND SubSector = ' + enquiryReq.subSector

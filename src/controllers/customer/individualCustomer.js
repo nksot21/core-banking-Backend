@@ -66,6 +66,8 @@ const individualCustomerController = {
         }*/
 
         const newCustomer = await customerModel.create({
+            GB_ShortName: customerReq.GB_ShortName,
+            GB_FullName: customerReq.GB_FullName,
             GB_Street: customerReq.GB_Street,
             GB_Towndist: customerReq.GB_Towndist,
             GB_Country: customerReq.GB_Country,
@@ -83,7 +85,8 @@ const individualCustomerController = {
             Industry: customerReq.Industry,
             AccountOfficer: customerReq.AccountOffice,
             CustomerType: constValue.customer.individualCustomer,
-            RelationCode: customerReq.RelationCode
+            RelationCode: customerReq.RelationCode,
+            PhoneNumber: customerReq.MobilePhone
         })
         .catch(err => {
             console.log(err)
@@ -94,8 +97,6 @@ const individualCustomerController = {
             FirstName: customerReq.FirstName,
             LastName: customerReq.LastName,
             MiddleName: customerReq.MiddleName,
-            GB_ShortName: customerReq.GB_ShortName,
-            GB_FullName: customerReq.GB_FullName,
             Birthday: customerReq.Birthday,
             MobilePhone: customerReq.MobilePhone,
             EmailAddress: customerReq.EmailAddress,

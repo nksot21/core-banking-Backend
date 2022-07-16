@@ -31,9 +31,8 @@ IndividualCustomer.init({
     MonthlyIncome: DataTypes.INTEGER,
     OfficeAddress: DataTypes.TEXT,
     CitizenIdentify: {
-        type: DataTypes.TEXT,
-        unique: true
+        type: DataTypes.TEXT
     }
-}, {sequelize, modelName:'INDIVIDUALCUSTOMER', /*paranoid: true*/})
+}, {sequelize, modelName:'INDIVIDUALCUSTOMER', paranoid: true})
 
 module.exports = IndividualCustomer

@@ -52,6 +52,8 @@ const corporateCustomerController = {
         }
 
         const newCustomer = await customerModel.create({
+            GB_ShortName: customerReq.GB_ShortName,
+            GB_FullName: customerReq.GB_FullName,
             GB_Street: customerReq.GB_Street,
             GB_Towndist: customerReq.GB_Towndist,
             GB_Country: customerReq.GB_Country,
@@ -69,14 +71,13 @@ const corporateCustomerController = {
             Industry: customerReq.Industry,
             AccountOfficer: customerReq.AccountOfficer,
             RelationCode: customerReq.RelationCode,
+            PhoneNumber: customerReq.OfficeNumber,
             CustomerType: constValue.customer.corporateCustomer
         })
 
         const newCustomerID = newCustomer.getDataValue("id")
 
         const newCorporateCustomer = await corporateCustomerModel.create({
-            GB_ShortName: customerReq.GB_ShortName,
-            GB_FullName: customerReq.GB_FullName,
             IncorpDate: customerReq.IncorpDate,
             ContactPerson: customerReq.ContactPerson,
             Position: customerReq.Position,

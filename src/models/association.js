@@ -14,7 +14,8 @@ const subSector = require('./storage/subSector')
 const subIndustry = require('./storage/subIndustry')
 const category = require('./storage/category')
 const productLine = require('./storage/productLine')
-const SubIndustry = require('./storage/subIndustry')
+const signature = require('./signature/signature')
+const signatureStatus = require('./signature/statusType')
 
 const association = () => {
     // CUSTOMER 
@@ -136,6 +137,16 @@ const association = () => {
     category.hasMany(productLine, {
         foreignKey: 'Category'
     })
+
+
+    // SIGNATURE
+    signature.belongsTo(signatureStatus, {
+        foreignKey: 'Status'
+    })
+    signature.belongsTo(customer, {
+        foreignKey: 'CustomerID'
+    })
+
 }
 
 
